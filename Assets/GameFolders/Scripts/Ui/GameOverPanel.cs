@@ -16,7 +16,7 @@ namespace RunnerGameInputAct.Ui
         public void NoButtonClick()
         {
             GameManager.Instance.LoadMenuAndUi(1f);
-            //GameManager.Instance.ResetScore();
+           
 
         }
     }

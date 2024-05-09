@@ -2,12 +2,13 @@ using RunnerGameInputAct.Manager;
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 
 namespace RunnerGameInputAct.Ui
 {
     public class DisplayScore : MonoBehaviour
     {
+        public static DisplayScore Instance { get; private set; }
+
         TextMeshProUGUI scoreText;
         [SerializeField] TextMeshProUGUI highScoreText;
         float flashSpeed = 0.15f;
@@ -17,15 +18,27 @@ namespace RunnerGameInputAct.Ui
         public Color Color2;
         private void Awake()
         {
+            SingletonThisGameObject();
             scoreText = GetComponent<TextMeshProUGUI>();
             origColor = scoreText.color;
 
+        }
+        private void SingletonThisGameObject()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(this.gameObject);
+            }
         }
 
         private void OnEnable()
         {
             GameManager.Instance.OnScoreChanged += HandleScoreChanged;
-            //GameManager.Instance.OnScoreChanged += ScoreFlash; 
+            //GameManager.Instance.OnHighScoreChanged += ScoreFlash; 
             GameManager.Instance.OnHighScoreChanged += HandleHighScoreChanged;
             GameManager.Instance.CheckHighScore();
         }
@@ -58,11 +71,11 @@ namespace RunnerGameInputAct.Ui
         public IEnumerator FlashingText()
         {
             
-            for (int i = 0; i < 12; i++)
+            for (int i = 0; i < 6; i++)
             {
-                scoreText.color = Color.yellow;
+                highScoreText.color = Color.yellow;
                 yield return new WaitForSeconds(flashSpeed);
-                scoreText.color = origColor;
+                highScoreText.color = origColor;
                 yield return new WaitForSeconds(flashSpeed);
             }
         }

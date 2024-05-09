@@ -75,6 +75,7 @@ namespace RunnerGameInputAct.Manager
             this.score += score;
             if (this.score > highScore)
             {
+                DisplayScore.Instance.ScoreFlash();
                 highScore = this.score;
                 OnHighScoreChanged?.Invoke(highScore);
                 PlayerPrefs.SetInt("HighScore", this.score);
@@ -87,7 +88,6 @@ namespace RunnerGameInputAct.Manager
         public void ResetScore() 
         { 
             score= 0;
-            //OnScoreChanged?.Invoke(score);
         }
         public void IncreaseCoin(int coin=0)
         {
@@ -106,7 +106,7 @@ namespace RunnerGameInputAct.Manager
                 PlayerPrefs.SetInt("HighScore", score);
             }
             OnHighScoreChanged?.Invoke(PlayerPrefs.GetInt("HighScore", 0));
-
+            
         }
 
     }

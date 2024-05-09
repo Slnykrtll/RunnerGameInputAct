@@ -1420,7 +1420,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f47fc3759df1bd946ba660446100b351, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreSpeed: 0
+  player: {fileID: 3962690749651763785}
+  distancePerScore: 5
 --- !u!1 &4499650027276860328
 GameObject:
   m_ObjectHideFlags: 0
